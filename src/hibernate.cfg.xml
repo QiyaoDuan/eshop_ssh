@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+	<session-factory>
+
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.temp.use_jdbc_metadata_defaults">
+			false
+		</property>
+		<property name="hibernate.current_session_context_class">
+			org.springframework.orm.hibernate4.SpringSessionContext
+		</property>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.MySQLDialect
+		</property>
+		<property name="myeclipse.connection.profile">
+			MySQL5.6
+		</property>
+
+		<!-- 配置二级缓存提供商，注意此处并不是缓存的jar包 -->
+		<property name="hibernate.cache.region.factory_class">
+			org.hibernate.cache.ehcache.EhCacheRegionFactory
+		</property>
+
+		<mapping class="com.model.Category" />
+		<mapping class="com.model.Account" />
+		<mapping class="com.model.Product" />
+		<mapping class="com.model.User" />
+		<mapping class="com.model.Status" />
+		<mapping class="com.model.Sorder" />
+		<mapping class="com.model.Forder" />
+
+		<!-- 配置哪些类支持缓存，这里主要是显示首页的热门商品，所以Product类支持缓存 -->
+		<class-cache usage="read-only" class="com.model.Product" />
+
+	</session-factory>
+
+</hibernate-configuration>

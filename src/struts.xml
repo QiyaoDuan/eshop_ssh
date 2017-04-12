@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<constant name="struts.devMode" value="false" />
+
+	<package name="shop" extends="json-default">
+
+		<global-results>
+			<result name="aindex">/WEB-INF/main/aindex.jsp</result>
+			<result name="stream" type="stream">
+            <param name="inputName">inputStream</param>
+        </result>
+		</global-results>
+
+		<!-- class对应的是Spring中配置该Action的id值，因为要交给Spring管理 -->
+		<action name="category_*" class="categoryAction" method="{1}">
+			<!-- 必须要先添加json包，然后上面继承json-default -->
+			<result name="jsonMap" type="json">
+				<!-- 要转换成json对象的数据 -->
+				<param name="root">pageMap</param>
+				<!-- 配置黑名单，过滤不需要的选项 ，支持正则表达式 json格式：{total:3,rows:[{account:{id:2,login:"user",name:"客服A",pass:"user"},hot:true,id:3,…}]} -->
+				<param name="excludeProperties">
+					rows\[\d+\]\.account\.pass
+				</param>
+			</result>
+			<result name="stream" type="stream"> <!-- 以stream的形式，type为stream -->  
+                <param name="inputName">inputStream</param> <!-- imputStream中有要传的数据 -->  
+            </result> 
+            <result name="jsonList" type="json">
+				<param name="root">jsonList</param>
+			</result>
+		</action>
+
+		<action name="account_*" class="accountAction" method="{1}">
+			<result name="jsonList" type="json">
+				<param name="root">jsonList</param>
+				<param name="excludeProperties">
+					\[\d+\]\.pass,\[\d+\]\.name
+				</param>
+			</result>
+		</action> 
+		
+		<action name="product_*" class="productAction" method="{1}">
+			<result name="jsonMap" type="json">
+				<param name="root">pageMap</param>
+				<param name="excludeProperties">
+					rows\[\d+\]\.category\.account
+				</param>
+			</result>
+			<result name="stream" type="stream">  
+                <param name="inputName">inputStream</param>  
+            </result>
+            <result name="detail">/detail.jsp</result>
+		</action> 
+
+		<action name="send_*_*" class="sendAction">
+			<result name="send">{1}/{2}.jsp</result>
+		</action>
+		
+		<action name="sorder_*" class="sorderAction" method="{1}">  
+    		<result name="showChart">/showChart.jsp</result>  
+    		<result name="jsonList" type="json"></result>  
+		</action>
+		
+		<action name="forder_*" class="forderAction" method="{1}">  
+    		<result name="bank">/user/bank.jsp</result>  
+		</action>
+		
+		<action name="user_*" class="userAction" method="{1}">  
+    		<result name="login" type="redirect">/ulogin.jsp</result>  
+    		<result name="goURL" type="redirect">${#session.goURL}</result>
+		</action>
+		
+		<action name="pay_*" class="payAction" method="{1}">
+			<result name="pay">/user/pay.jsp</result>
+		</action>
+
+	</package>
+
+</struts>  

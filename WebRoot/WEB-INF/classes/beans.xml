@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!-- 扫描包 -->
+ 	<context:annotation-config />
+	<context:component-scan base-package="com.."/>
+	
+	 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	 	<property name="locations">
+	 		<array>
+	 		  <value>classpath:remote.properties</value>
+	 		  <!--  <value>classpath:conn.properties</value> -->
+	 		</array>
+	 	</property>
+	 </bean>
+	 
+	<bean id="prop" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	 	<property name="locations">
+	 		<array>
+	 			<value>classpath:public.properties</value>
+	 			<value>classpath:pay.properties</value>
+	 		</array>
+	 	</property>
+	 </bean>
+	 
+	<!-- 配置数据库 -->
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/shop" />
+		<property name="user" value="root" />
+		<property name="password" value="123456" />
+	</bean> -->
+	<bean id="dataSource" class="${dataSource}">  
+	    <property name="driverClass" value="${driverClass}" />  
+	    <property name="jdbcUrl" value="${jdbcUrl}" />  
+	    <property name="user" value="${user}" />  
+	    <property name="password" value="${password}" />
+	</bean>  
+	 
+	
+
+	<!-- 创建Session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+
+	</bean>
+
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 通知配置 -->
+	<tx:advice id="advice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<!-- 配置哪些包的类要切入事务，aop:pointcut要写在aop:advisor上面，否则会报错 -->
+		<aop:pointcut id="pointcut" expression="execution(* com.service..*.*(..))" />
+		<aop:advisor advice-ref="advice" pointcut-ref="pointcut" />
+	</aop:config>	
+	
+	<bean id="date" class="java.util.Date" />
+	<bean id="accountAction" class="com.action.AccountAction" /> 
+	<bean id="categoryAction" class="com.action.CategoryAction" />
+	<bean id="sendAction" class="com.action.SendAction" /> 
+	<bean id="productAction" class="com.action.ProductAction" /> 
+	<bean id="productTimerTask" class="com.utils.ProductTimerTask" /> 
+	<bean id="sorderAction" class="com.action.SorderAction" /> 
+	<bean id="userAction" class="com.action.UserAction" /> 
+	<bean id="forderAction" class="com.action.ForderAction" />
+	<bean id="fileUpload" class="com.utils.FileUploadUtil" />
+	<bean id="payAction" class="com.action.PayAction" />
+	
+
+</beans>

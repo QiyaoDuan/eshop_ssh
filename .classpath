@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring-4.2.4-core"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring4.2.4-aop"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JUnit 4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate4.3.11"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-connector-java-5.1.26-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/c3p0-0.9.5.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring4.2.4-persistence"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/struts2.3.41"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring4.2.4-web"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_6_CONTAINER"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-log4j12-1.5.8.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-json-plugin-2.3.24.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ehcache-core-2.4.3.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-ehcache-4.3.11.Final.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
+</classpath>
